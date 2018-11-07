@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录demoLogin</title>
+</head>
+<body>
+<h2>用户登录</h2>
+<form action="/authentication/form" method="post">
+    用户名：<label>
+    <input type="text" name="username">
+</label><br>
+    密码：<label>
+    <input type="password" name="password">
+</label><br>
+    图形验证码：<input type="text" name="imageCode"><br>
+    <img src="/code/image?width=100" alt="">
+    <br>
+    记住我: <input type="checkbox" name="remember-me" value="true">
+    <button type="submit">登录</button>
+</form>
+<br>
+<h2>短信登录</h2>
+<form action="/authentication/mobile" method="post">
+    手机号：<label>
+    <input type="text" name="mobile">
+</label><br>
+    短信验证码：<label>
+    <input type="text" name="smsCode">
+    <a href="/code/sms?mobile=18852897377">发送短信验证码</a>
+</label><br>
+
+    <br>
+    记住我: <input type="checkbox" name="remember-me" value="true">
+    <button type="submit">登录</button>
+</form>
+</body>
+</html>

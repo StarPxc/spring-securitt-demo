@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/imooc??characterEncoding=utf8
+    username: root
+    password: 935377012
+  session:
+    store-type: none
+imooc:
+  security:
+    browser:
+      loginPage: /demoLogin.html
+      loginType: JSON
+    code:
+      image:
+        length: 4
+        width: 20
+        height: 40
+        expire: 100
+        urls: /user,/user/*
+
+
