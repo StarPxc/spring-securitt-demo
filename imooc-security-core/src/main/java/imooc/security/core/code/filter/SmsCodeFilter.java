@@ -37,12 +37,13 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
 
     private AuthenticationFailureHandler authenticationFailureHandler;
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
-    private Set<String> urls=new HashSet<>();
+    private Set<String> urls = new HashSet<>();
     private SecurityProperties securityProperties;
-    private AntPathMatcher pathMatcher=new AntPathMatcher();
+    private AntPathMatcher pathMatcher = new AntPathMatcher();
 
     /**
      * 实现InitializingBean接口,在其他参数组装完毕后再去组装urls
+     *
      * @throws ServletException
      */
     @Override
@@ -50,7 +51,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
         super.afterPropertiesSet();
         //登录接口是一定要有验证码的
         urls.add("/authentication/mobile");
-        String[] configUrls=StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getSms().getUrls(),",");
+        String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getSms().getUrls(), ",");
         if (configUrls != null) {
             Collections.addAll(urls, configUrls);
         }
@@ -76,10 +77,10 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        boolean action=false;
+        boolean action = false;
         for (String url : urls) {
-            if (pathMatcher.match(url,httpServletRequest.getRequestURI())){
-                action=true;
+            if (pathMatcher.match(url, httpServletRequest.getRequestURI())) {
+                action = true;
             }
         }
         //这边有点问题，只能是post所以刚开始测试user接口失败
@@ -97,7 +98,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
     }
 
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-        ValidateCode codeSession = (ValidateCode) sessionStrategy.getAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX+"SMS");
+        ValidateCode codeSession = (ValidateCode) sessionStrategy.getAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX + "SMS");
         String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "smsCode");
         if (StringUtils.isBlank(codeInRequest)) {
             throw new ValidateException("验证码不能为空");

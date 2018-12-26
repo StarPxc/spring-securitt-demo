@@ -49,7 +49,6 @@ public class SmsAuthenticationFilter extends
         }
 
 
-
         mobile = mobile.trim();
 
         SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken(mobile);
@@ -59,7 +58,6 @@ public class SmsAuthenticationFilter extends
 
         return this.getAuthenticationManager().authenticate(authRequest);
     }
-
 
 
     protected String obtainMobile(HttpServletRequest request) {
@@ -76,7 +74,6 @@ public class SmsAuthenticationFilter extends
         Assert.hasText(mobileParameter, "mobile parameter must not be empty or null");
         this.mobileParameter = mobileParameter;
     }
-
 
 
     public void setPostOnly(boolean postOnly) {

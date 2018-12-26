@@ -39,17 +39,17 @@ public class BrowserSecurityController {
 
 
     @GetMapping("me")
-    public Object getCurrentUser(){
+    public Object getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
+
     @GetMapping("meSimple")
-    public Object getCurrentUserSimple(Authentication authentication){
+    public Object getCurrentUserSimple(Authentication authentication) {
         return authentication;
     }
 
     /**
      * 当身份认证时跳转到这里
-
      */
     @RequestMapping("/authentication/require")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)

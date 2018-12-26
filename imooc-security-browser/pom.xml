@@ -8,7 +8,6 @@
     <packaging>jar</packaging>
 
 
-
     <parent>
         <groupId>com.imooc.security</groupId>
         <artifactId>security</artifactId>
@@ -24,10 +23,10 @@
 
     <dependencies>
         <dependency>
-        <groupId>com.imooc.security</groupId>
-        <artifactId>imooc-security-core</artifactId>
-        <version>${immoc.security.version}</version>
-    </dependency>
+            <groupId>com.imooc.security</groupId>
+            <artifactId>imooc-security-core</artifactId>
+            <version>${immoc.security.version}</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session -->
         <dependency>
             <groupId>org.springframework.session</groupId>
@@ -35,8 +34,6 @@
             <version>1.3.3.RELEASE</version>
         </dependency>
     </dependencies>
-
-
 
 
 </project>

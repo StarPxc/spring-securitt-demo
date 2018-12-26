@@ -23,7 +23,6 @@ import javax.sql.DataSource;
 /**
  * @author 浦希成
  * 2018/10/18
-
  */
 @EnableWebSecurity
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -43,18 +42,20 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
 
         return new BCryptPasswordEncoder();
     }
+
     /**
-     *     rememberMe相关
+     * rememberMe相关
      */
 
     @Bean
-    public PersistentTokenRepository persistentTokenRepository(){
-        JdbcTokenRepositoryImpl tokenRepository=new JdbcTokenRepositoryImpl();
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
         /*
         自动建表
@@ -68,19 +69,19 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        ValidateCodeFilter validateCodeFilter=new ValidateCodeFilter();
+        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
         validateCodeFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
         validateCodeFilter.setSecurityProperties(securityProperties);
         validateCodeFilter.afterPropertiesSet();
 
-        SmsCodeFilter smsCodeFilter=new SmsCodeFilter();
+        SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
         smsCodeFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
         smsCodeFilter.setSecurityProperties(securityProperties);
         smsCodeFilter.afterPropertiesSet();
         //用表单登录，所有的请求都需要进行身份认证
         http
-                .addFilterBefore(smsCodeFilter,UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(validateCodeFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/form")
@@ -95,7 +96,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authentication/require",securityProperties.getBrowser().getLoginPage(),"/code/*")
+                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage(), "/code/*")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

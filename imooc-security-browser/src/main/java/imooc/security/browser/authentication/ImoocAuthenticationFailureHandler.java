@@ -23,19 +23,20 @@ import java.io.IOException;
 public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
 
-    private ObjectMapper objectMapper=new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private SecurityProperties securityProperties;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
-        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())){
+        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
-        }else {
-            super.onAuthenticationFailure(request,response,exception);
+        } else {
+            super.onAuthenticationFailure(request, response, exception);
         }
 
     }

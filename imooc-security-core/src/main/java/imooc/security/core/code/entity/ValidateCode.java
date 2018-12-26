@@ -22,16 +22,18 @@ public class ValidateCode {
 
     /**
      * 经过多少秒过期
+     *
      * @param code
      * @param expireIn
      */
-    public ValidateCode( String code, int expireIn) {
+    public ValidateCode(String code, int expireIn) {
         this.code = code;
 
         this.expire = LocalDateTime.now().plusSeconds(expireIn);
     }
 
-    public ValidateCode() {}
+    public ValidateCode() {
+    }
 
     public boolean isExpired() {
         return LocalDateTime.now().isAfter(expire);

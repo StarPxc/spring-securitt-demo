@@ -18,19 +18,20 @@ import org.springframework.context.annotation.Configuration;
 public class ValidateCodeBeanConfig {
     @Autowired
     private SecurityProperties securityProperties;
+
     @Bean
     //@ConditionalOnMissingBean的作用是当没有imageCodeGenerator这个bean的时候才回去生成一个bean
 
     @ConditionalOnMissingBean(name = "imageCodeGenerator")
-    public ValidateCodeGenerator imageCodeGenerator(){
-        ImageCodeGenerator codeGenerator=new ImageCodeGenerator();
+    public ValidateCodeGenerator imageCodeGenerator() {
+        ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
         codeGenerator.setSecurityProperties(securityProperties);
         return codeGenerator;
     }
 
     @Bean
     @ConditionalOnMissingBean(SmsCodeSender.class)
-    public SmsCodeSender smsCodeSender(){
+    public SmsCodeSender smsCodeSender() {
 
         return new DefaultSmsCodeSender();
     }

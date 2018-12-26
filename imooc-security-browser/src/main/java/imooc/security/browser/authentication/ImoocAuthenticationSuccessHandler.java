@@ -23,7 +23,7 @@ import java.io.IOException;
 public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
 
-    private ObjectMapper objectMapper=new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -33,12 +33,12 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
         //authentication 包含了登录时的信息
 
         //如果是json格式的
-        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())){
+        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(authentication));
-        }else {
+        } else {
             //不是json进行页面的跳转
-            super.onAuthenticationSuccess(request,response,authentication);
+            super.onAuthenticationSuccess(request, response, authentication);
         }
 
     }

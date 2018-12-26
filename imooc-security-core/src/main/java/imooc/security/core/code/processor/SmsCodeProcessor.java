@@ -18,9 +18,10 @@ import java.io.IOException;
 public class SmsCodeProcessor extends AbstractValidateProcessor<ValidateCode> {
     @Autowired
     private SmsCodeSender smsCodeSender;
+
     @Override
     public void send(ServletWebRequest request, ValidateCode smsCode) throws IOException, ServletRequestBindingException {
-        String mobile= ServletRequestUtils.getRequiredStringParameter(request.getRequest(),"mobile");
-        smsCodeSender.send(mobile,smsCode.getCode());
+        String mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "mobile");
+        smsCodeSender.send(mobile, smsCode.getCode());
     }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * 2018/10/19
  */
 @Data
-public class ImageCode extends ValidateCode{
+public class ImageCode extends ValidateCode {
     private BufferedImage image;
 
 
@@ -22,6 +22,7 @@ public class ImageCode extends ValidateCode{
 
     /**
      * 经过多少秒过期
+     *
      * @param image
      * @param code
      * @param expireIn
@@ -32,7 +33,8 @@ public class ImageCode extends ValidateCode{
 
     }
 
-    public ImageCode() {}
+    public ImageCode() {
+    }
 
 
 }

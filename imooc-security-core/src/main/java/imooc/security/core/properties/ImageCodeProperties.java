@@ -8,10 +8,11 @@ import lombok.Data;
  * 图形验证码的默认配置
  */
 @Data
-public class ImageCodeProperties extends SmsCodeProperties{
-    private int width=67;
-    private int height=23;
-    public ImageCodeProperties(){
+public class ImageCodeProperties extends SmsCodeProperties {
+    private int width = 67;
+    private int height = 23;
+
+    public ImageCodeProperties() {
         setLength(4);
     }
 

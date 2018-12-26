@@ -27,7 +27,7 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     public SmsCodeAuthenticationToken(Object principal,
-                                               Collection<? extends GrantedAuthority> authorities) {
+                                      Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
 

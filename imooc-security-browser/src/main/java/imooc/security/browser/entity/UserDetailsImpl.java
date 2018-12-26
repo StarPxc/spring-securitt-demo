@@ -16,6 +16,7 @@ public class UserDetailsImpl extends MyUser implements UserDetails {
 
     /**
      * 可以是使用工具根据字符串生成权限 例如 "admin,guest"类型的字符串
+     *
      * @return Collection
      */
     @Override
@@ -40,6 +41,6 @@ public class UserDetailsImpl extends MyUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return getEnable()==1;
+        return getEnable() == 1;
     }
 }

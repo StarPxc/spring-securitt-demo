@@ -13,6 +13,7 @@ public class SimpleResponse {
     public SimpleResponse(Object content) {
         this.content = content;
     }
+
     public SimpleResponse() {
 
     }

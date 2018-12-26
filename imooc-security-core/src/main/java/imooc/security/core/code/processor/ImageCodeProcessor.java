@@ -15,7 +15,7 @@ import java.io.IOException;
 public class ImageCodeProcessor extends AbstractValidateProcessor<ImageCode> {
     @Override
     public void send(ServletWebRequest request, ImageCode imageCode) throws IOException {
-        ImageIO.write(imageCode.getImage(),"JPEG",request.getResponse().getOutputStream());
+        ImageIO.write(imageCode.getImage(), "JPEG", request.getResponse().getOutputStream());
 
     }
 

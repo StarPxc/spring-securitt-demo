@@ -1,4 +1,5 @@
 package imooc.security.core.code.filter;
+
 import imooc.security.core.code.exception.ValidateException;
 import imooc.security.core.code.controller.ValidateCodeController;
 import imooc.security.core.code.entity.ImageCode;
@@ -33,18 +34,19 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     private AuthenticationFailureHandler authenticationFailureHandler;
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
-    private Set<String> urls=new HashSet<>();
+    private Set<String> urls = new HashSet<>();
     private SecurityProperties securityProperties;
-    private AntPathMatcher pathMatcher=new AntPathMatcher();
+    private AntPathMatcher pathMatcher = new AntPathMatcher();
 
     /**
      * 实现InitializingBean接口,在其他参数组装完毕后再去组装urls
+     *
      * @throws ServletException
      */
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        String[] configUrls=StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImage().getUrls(),",");
+        String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImage().getUrls(), ",");
         for (String configUrl : configUrls) {
             urls.add(configUrl);
         }
@@ -70,10 +72,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        boolean action=false;
+        boolean action = false;
         for (String url : urls) {
-            if (pathMatcher.match(url,httpServletRequest.getRequestURI())){
-                action=true;
+            if (pathMatcher.match(url, httpServletRequest.getRequestURI())) {
+                action = true;
             }
         }
         //这边有点问题，只能是post所以刚开始测试user接口失败
@@ -94,7 +96,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         ImageCode codeSession = (ImageCode) sessionStrategy.getAttribute(request, ValidateCodeController.SESSION_KEY);
         String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "imageCode");
         //非web端登录暂时不需要验证码
-        if (!StringUtils.endsWithIgnoreCase(request.getRequest().getRequestURI(),".html")){
+        if (!StringUtils.endsWithIgnoreCase(request.getRequest().getRequestURI(), ".html")) {
             return;
         }
         if (StringUtils.isBlank(codeInRequest)) {

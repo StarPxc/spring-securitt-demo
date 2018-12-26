@@ -24,12 +24,12 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        SmsCodeAuthenticationToken authenticationToken=(SmsCodeAuthenticationToken) authentication;
-        UserDetails userDetails=userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
-        if (userDetails==null){
+        SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
+        UserDetails userDetails = userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
+        if (userDetails == null) {
             throw new InternalAuthenticationServiceException("无法获取用户信息");
         }
-        SmsCodeAuthenticationToken authenticationResult=new SmsCodeAuthenticationToken(userDetails,userDetails.getAuthorities());
+        SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken(userDetails, userDetails.getAuthorities());
         //把未认证保存的一些请求信息保存到已认证的里面去
         authenticationResult.setDetails(authenticationToken.getDetails());
         return authenticationResult;

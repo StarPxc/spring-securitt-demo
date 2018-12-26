@@ -24,18 +24,19 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
     private AuthenticationFailureHandler imoocAuthenticationFailureHandler;
     @Autowired
     private UserDetailsService userDetailsService;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        SmsAuthenticationFilter smsAuthenticationFilter=new SmsAuthenticationFilter();
+        SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();
         smsAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
         smsAuthenticationFilter.setAuthenticationSuccessHandler(imoocAuthenticationSuccessHandler);
         smsAuthenticationFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
-        SmsCodeAuthenticationProvider smsCodeAuthenticationProvider=new SmsCodeAuthenticationProvider();
+        SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
         smsCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
         //authenticationProvider就会把自己写的provider加到AuthenticationManager管理的provider集合里
         http.authenticationProvider(smsCodeAuthenticationProvider)
                 .addFilterAfter(smsAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                ;
+        ;
 
     }
 }
